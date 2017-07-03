@@ -13,5 +13,6 @@ def pad_list_sequences(sequence_list, length=None):
        not specified padding till sentence of max length."""
     if length is None:
         length = max(s.size(0) for s in sequence_list)
-    padded_list = [pad_single_sequence(s, length) for s in sequence_list]
+    padded_list = [pad_single_sequence(s, length) for s in
+                   sorted(sequence_list, key=lambda tensor: tensor.size(0), reverse=True)]
     return torch.cat(padded_list, dim=1)
