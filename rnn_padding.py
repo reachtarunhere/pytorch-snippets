@@ -17,4 +17,4 @@ def pad_list_sequences(sequence_list, length=None):
                    sorted(sequence_list, key=lambda tensor: tensor.size(0), reverse=True)]
     # Now add extra dimension
     padded_list = [s.view(length, 1, s.size(1)) for s in padded_list]
-    return torch.cat(padded_list, dim=1)
+    return torch.cat(padded_list, dim=1), list(sorted((s.size(0) for s in sequence_list), reverse=True))
